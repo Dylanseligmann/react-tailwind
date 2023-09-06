@@ -1,4 +1,4 @@
-import { Fragment,useEffect } from 'react'
+import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import logo from '../logo.svg';
@@ -22,7 +22,7 @@ export default function Navbar() {
     navigation.forEach((item) => {
         item.current = item.href === location.pathname;
     });
-    
+
     return (
         <Disclosure as="nav" className="bg-gray-900">
             {({ open }) => (
