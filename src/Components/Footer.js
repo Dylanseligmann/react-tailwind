@@ -6,7 +6,7 @@ const Footer = () => {
             <div className="bg-gray-800 bg-opacity-75">
                 <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
                     <p className="text-gray-400 text-sm text-center sm:text-left">© 2023 Dylander —
-                        <a href="https://twitter.com/knyttneve" rel="noopener noreferrer" className="text-gray-500 ml-1" target="_blank"> https://github.com/Dylanseligmann</a>
+                        <a href="https://github.com/Dylanseligmann" rel="noopener noreferrer" className="text-gray-500 ml-1" target="_blank"> https://github.com/Dylanseligmann</a>
                     </p>
                     <span className="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
                         <a className="text-gray-400 hover:text-white cursor-pointer">
