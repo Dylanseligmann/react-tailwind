@@ -11,7 +11,7 @@ const people = [
 
 export default function Team() {
     return (
-        <div className="sm:py-32 h-[32rem] bg-gray-800">
+        <div className="sm:py-32 bg-gray-800 h-[88vh]">
             <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 xl:grid-cols-3">
                 <div className="max-w-2xl">
                     <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">Meet our leadership</h2>

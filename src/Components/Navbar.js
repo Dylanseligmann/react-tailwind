@@ -2,12 +2,12 @@ import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import logo from '../logo.svg';
-import { Link,useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const navigation = [
-    { name: 'Home', href: '/', current: true },
-    { name: 'Team', href: '/Team', current: false },
-    { name: 'Contact Us', href: '/contactUs', current: false },
+    { name: 'Home', href: '/' },
+    { name: 'Team', href: '/Team' },
+    { name: 'Contact Us', href: '/contactUs' },
 ]
 
 function classNames(...classes) {
@@ -15,13 +15,6 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
-
-    const location = useLocation();
-
-    // Update the 'current' property based on the current location
-    navigation.forEach((item) => {
-        item.current = item.href === location.pathname;
-    });
 
     return (
         <Disclosure as="nav" className="bg-gray-900">
@@ -43,20 +36,26 @@ export default function Navbar() {
                             </div>
                             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                                 <div className="flex flex-shrink-0 items-center">
-                                    <img src={logo} className="App-logo" width= '50px' height= '50px' />
+                                    <img src={logo} className="App-logo" width='50px' height='50px' />
                                 </div>
                                 <div className="hidden sm:ml-6 sm:block">
                                     <div className="flex space-x-4">
                                         {navigation.map((item) => (
-                                            <Link to={item.href}
-                                                    className={classNames(
-                                                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                                                    'rounded-md px-3 py-2 text-sm font-medium'
-                                                    )}
-                                                    aria-current={item.current ? 'page' : undefined}
+                                            <NavLink
+                                                key={item.name}
+                                                to={item.href}
+                                                className= { ({isActive}) => {
+
+                                                    return 'rounded-md px-3 py-2 text-md font-large'
+                                                            +
+                                                        (isActive 
+                                                        ? ' text-white bg-gray-700 ' 
+                                                        : 'text-gray-300 hover:bg-gray-700 hover:text-white text-gray-500' )
+                                                }
+                                            }
                                             >
                                                 {item.name}
-                                            </Link>
+                                            </NavLink>
                                         ))}
                                     </div>
                                 </div>
@@ -134,7 +133,7 @@ export default function Navbar() {
                     <Disclosure.Panel className="sm:hidden">
                         <div className="space-y-1 px-2 pb-3 pt-2">
                             {navigation.map((item) => (
-                                <Link to={item.href}
+                                <NavLink to={item.href}
                                     className={classNames(
                                         item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                                         'block rounded-md px-3 py-2 text-base font-medium'
@@ -142,7 +141,7 @@ export default function Navbar() {
                                     aria-current={item.current ? 'page' : undefined}
                                 >
                                     {item.name}
-                                </Link>
+                                </NavLink>
                             ))}
                         </div>
                     </Disclosure.Panel>
@@ -150,6 +149,6 @@ export default function Navbar() {
             )}
         </Disclosure>
 
-        
+
     )
 }
