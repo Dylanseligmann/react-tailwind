@@ -46,7 +46,7 @@ export default function Navbar() {
                                                 to={item.href}
                                                 className= { ({isActive}) => {
 
-                                                    return 'rounded-md px-3 py-2 text-md font-large'
+                                                    return 'rounded-md px-3 py-2 text-sm font-large'
                                                             +
                                                         (isActive 
                                                         ? ' text-white bg-gray-700 ' 
