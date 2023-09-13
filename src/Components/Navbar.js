@@ -1,11 +1,14 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import logo from '../logo.svg';
 import { NavLink } from 'react-router-dom';
+import { ShoppingCart } from "@phosphor-icons/react";
+
 
 const navigation = [
     { name: 'Home', href: '/' },
+    { name: 'Products', href: '/products' },
     { name: 'Team', href: '/Team' },
     { name: 'Contact Us', href: '/contactUs' },
 ]
@@ -67,7 +70,7 @@ export default function Navbar() {
                                 >
                                     <span className="absolute -inset-1.5" />
                                     <span className="sr-only">View notifications</span>
-                                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                                    <ShoppingCart size={25} aria-hidden="true" />
                                 </button>
 
                                 {/* Profile dropdown */}
@@ -77,8 +80,8 @@ export default function Navbar() {
                                             <span className="absolute -inset-1.5" />
                                             <span className="sr-only">Open user menu</span>
                                             <img
-                                                className="h-8 w-8 rounded-full"
-                                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                                className="h-10 w-10 rounded-full"
+                                                src="https://avatars.githubusercontent.com/u/127892811?v=4"
                                                 alt=""
                                             />
                                         </Menu.Button>
