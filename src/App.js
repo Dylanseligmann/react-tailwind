@@ -7,12 +7,18 @@ import Team from './Components/Team';
 import ContactUs from './Components/ContactUs'
 import Footer from './Components/Footer';
 import {ProductDetail} from './Components/ProductDetail';
+import CartSlideOver from './Components/CartSlideOver';
+import {CartProvider} from './Contexts/CartContext'
 
 function App() {
+
   return (
 
-    <>
+    <CartProvider>
+
       <Navbar />
+
+      <CartSlideOver />
 
       <Routes>
 
@@ -24,10 +30,11 @@ function App() {
 
       </Routes>
 
+
       <Footer />
 
 
-    </>
+    </CartProvider>
   );
 }
 

@@ -1,9 +1,10 @@
-import { Fragment } from 'react'
+import { Fragment, useContext } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import logo from '../logo.svg';
 import { NavLink } from 'react-router-dom';
 import { ShoppingCart } from "@phosphor-icons/react";
+import { CartContext } from '../Contexts/CartContext';
 
 
 const navigation = [
@@ -18,6 +19,8 @@ function classNames(...classes) {
 }
 
 export default function Navbar() {
+
+    const cart = useContext(CartContext)
 
     return (
         <Disclosure as="nav" className="bg-gray-900">
@@ -47,15 +50,15 @@ export default function Navbar() {
                                             <NavLink
                                                 key={item.name}
                                                 to={item.href}
-                                                className= { ({isActive}) => {
+                                                className={({ isActive }) => {
 
                                                     return 'rounded-md px-3 py-2 text-sm font-large'
-                                                            +
-                                                        (isActive 
-                                                        ? ' text-white bg-gray-700 ' 
-                                                        : 'text-gray-300 hover:bg-gray-700 hover:text-white text-gray-500' )
+                                                        +
+                                                        (isActive
+                                                            ? ' text-white bg-gray-700 '
+                                                            : 'text-gray-300 hover:bg-gray-700 hover:text-white text-gray-500')
                                                 }
-                                            }
+                                                }
                                             >
                                                 {item.name}
                                             </NavLink>
@@ -67,6 +70,7 @@ export default function Navbar() {
                                 <button
                                     type="button"
                                     className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                                    onClick={() => cart.setOpen(true) }
                                 >
                                     <span className="absolute -inset-1.5" />
                                     <span className="sr-only">View notifications</span>
@@ -151,7 +155,5 @@ export default function Navbar() {
                 </>
             )}
         </Disclosure>
-
-
     )
 }
