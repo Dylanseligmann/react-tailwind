@@ -2,11 +2,31 @@ import { Fragment, useContext, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { CartContext } from "../Contexts/CartContext";
+import { deleteDoc, getFirestore,collection,doc } from "firebase/firestore";
 
 export default function CartSlideOver() {
 
 
   const cart = useContext(CartContext)
+
+  function removeItem(item, index){
+
+    cart.setItems((prev) => prev.splice(index, 1));
+
+    console.log(index)
+
+    const db = getFirestore()
+
+    const cartItems = collection(db, "Cart");
+
+    const docRef = doc(cartItems,item.docId)
+
+    deleteDoc(docRef)
+
+    
+
+
+  }
 
 
   return (
@@ -58,19 +78,33 @@ export default function CartSlideOver() {
                       </button>
                     </div>
                   </Transition.Child>
-                  <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
+                  <div className="flex h-full flex-col overflow-y-scroll bg-gray-800 py-6 shadow-xl">
                     <div className="px-4 sm:px-6">
-                      <Dialog.Title className="text-base font-semibold leading-6 text-gray-900">
-                        Panel title
+                      <Dialog.Title className="text-base font-semibold leading-6 text-white">
+                        Your Cart
                       </Dialog.Title>
                     </div>
-                    <div className="relative mt-6 flex-1 px-4 sm:px-6">
+                    <div className="relative mt-6 flex-1 px-4 sm:px-6 text-white">
                       {cart.items.map((i,key)=>{
 
                         return (
-
-                          <div key={key}>{i}</div>
-                        )
+                          <div>
+                            <hr />
+                            <img src={i.thumbnail} className=" m-auto mt-2 rounded" />
+                            <div key={key}>
+                              {i.title}
+                              {i.price}
+                            
+                              <button
+                                className="flex ml-auto text-white bg-[#65a30d] border-0 py-1 px-6 mb-2 focus:outline-none hover:bg-[#4d7c0f] rounded"
+                                onClick={() => removeItem(i, key)}
+                              >
+                                Delete
+                              </button>
+                              <hr />
+                            </div>
+                          </div>
+                        );
 
                       })}
                     </div>

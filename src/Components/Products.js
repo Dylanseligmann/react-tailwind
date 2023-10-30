@@ -1,9 +1,11 @@
-import React, { useContext, useEffect, useState} from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import SearchBar from './SearchBar'
 import { NavLink } from 'react-router-dom';
 import logo from '../logo.svg';
 import { ShoppingCart } from '@phosphor-icons/react';
 import { CartContext } from '../Contexts/CartContext';
+import { addDoc, doc, getDoc, getFirestore, collection } from 'firebase/firestore'
+
 
 
 export default function Products() {
@@ -11,14 +13,42 @@ export default function Products() {
     const [searchResults, setSearchResults] = useState([]);
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
-    
-    const {items,setItems} = useContext(CartContext)
-    
+
+
+    function saveProduct({price,title,thumbnail}){
+
+        const db = getFirestore()
+
+        const cartCollection = collection(db,'Cart')
+
+        const item = {price,title,thumbnail}
+
+        return addDoc(cartCollection, item)
+        
+    }
+
+
+    const { items, setItems } = useContext(CartContext)
+
+    useEffect(() => {
+
+
+        const db = getFirestore()
+
+        const dbcart = doc(db, "Cart", "CuwyCrB8MWyiIzxXTmZd");
+        getDoc(dbcart).then((snapshot) => {
+            if (snapshot.exists()) {
+                console.log(snapshot.data())
+            }
+        })
+
+    }, [items])
+
 
     //Show Last Search Results
 
     useEffect(() => {
-        
+
         const savedSearchResults = localStorage.getItem('searchResults');
 
         if (savedSearchResults) {
@@ -28,7 +58,7 @@ export default function Products() {
     }, []);
 
     const handleSearch = (query) => {
-        
+
         //Spinner Starts
         setLoading(true);
 
@@ -57,7 +87,7 @@ export default function Products() {
                         <img src={logo} className="App-logo mt-3" width='50px' height='50px' alt="Loading" />
                     </div>
                 )}
-{/* 
+                {/* 
                 <h2 className="text-2xl font-bold tracking-tight text-white"></h2> */}
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
@@ -88,12 +118,19 @@ export default function Products() {
                             <div className='flex'>
                                 <button
                                     type="button"
-                                    onClick={() => { setItems([product.title,...items])} }
+                                    onClick={async () => {
+                                        const docRef = await saveProduct(product) ;
+
+                                        product.docId = docRef.id
+                                        
+                                        setItems([product, ...items])} }
+
+
                                     className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                                 >
                                     <ShoppingCart size={25} aria-hidden="true" />
                                 </button>
-                                <button onClick={() => {} } className="flex ml-auto text-white bg-[#65a30d] border-0 py-2 px-6 focus:outline-none hover:bg-[#4d7c0f] rounded">
+                                <button onClick={() => { }} className="flex ml-auto text-white bg-[#65a30d] border-0 py-2 px-6 focus:outline-none hover:bg-[#4d7c0f] rounded">
                                     Buy Now
                                 </button>
                             </div>
