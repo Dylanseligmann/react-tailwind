@@ -14,6 +14,7 @@ export default function Products() {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
+    //Save Item in Cart Database
 
     function saveProduct({price,title,thumbnail}){
 
@@ -27,25 +28,12 @@ export default function Products() {
         
     }
 
+    //Context
 
     const { items, setItems } = useContext(CartContext)
 
-    useEffect(() => {
 
-
-        const db = getFirestore()
-
-        const dbcart = doc(db, "Cart", "CuwyCrB8MWyiIzxXTmZd");
-        getDoc(dbcart).then((snapshot) => {
-            if (snapshot.exists()) {
-                console.log(snapshot.data())
-            }
-        })
-
-    }, [items])
-
-
-    //Show Last Search Results
+    //Show Last Search Results 
 
     useEffect(() => {
 
@@ -121,7 +109,7 @@ export default function Products() {
                                     onClick={async () => {
                                         const docRef = await saveProduct(product) ;
 
-                                        product.docId = docRef.id
+                                        product.docId = docRef.id;
                                         
                                         setItems([product, ...items])} }
 

@@ -4,6 +4,9 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom'
 import { initializeApp } from 'firebase/app';
 
+
+//FireBase Initialization
+
 const firebaseConfig = {
   apiKey: "AIzaSyCWaJZp3xMhI1Ff0droPYV10sB_NXcw9cw",
   authDomain: "react-tailwind-b9283.firebaseapp.com",

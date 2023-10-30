@@ -24,6 +24,8 @@ export const CartProvider = ({ children }) => {
                 return { docId: doc.id, ...doc.data() }
             })
 
+            //Checking if there are no differences with the Database
+
             if (items !== parseItems) {
                 console.log('Set items!')
                 setItems(parseItems)
