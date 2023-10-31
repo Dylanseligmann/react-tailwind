@@ -13,7 +13,7 @@ export default function CartSlideOver() {
 
     cart.setItems((prev) => prev.splice(index, 1));
 
-    console.log(index)
+    console.log({item,index})
 
     const db = getFirestore()
 
@@ -91,16 +91,20 @@ export default function CartSlideOver() {
                           <div>
                             <hr />
                             <img src={i.thumbnail} className=" m-auto mt-2 rounded" />
-                            <div key={key}>
-                              {i.title}
-                              {i.price}
-                            
-                              <button
-                                className="flex ml-auto text-white bg-[#65a30d] border-0 py-1 px-6 mb-2 focus:outline-none hover:bg-[#4d7c0f] rounded"
-                                onClick={() => removeItem(i, key)}
-                              >
-                                Delete
-                              </button>
+                            <div key={key} className="text-center">
+                              <p>{i.title}</p>
+                              <p className="mt-1">${i.price}</p>
+                              <div className="flex mt-4">
+                                <button
+                                  className="flex m-auto text-white bg-[#65a30d] border-0 py-1 px-6 mb-2 focus:outline-none hover:bg-[#4d7c0f] rounded"
+                                >Buy Now</button>
+                                <button
+                                  className="flex m-auto text-white bg-[#65a30d] border-0 py-1 px-6 mb-2 focus:outline-none hover:bg-[#4d7c0f] rounded"
+                                  onClick={() => removeItem(i, key)}
+                                >
+                                  Delete
+                                </button>
+                              </div>
                               <hr />
                             </div>
                           </div>

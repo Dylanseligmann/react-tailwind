@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import logo from "../logo.svg";
 
 export const ProductDetail = () => {
 
@@ -19,7 +20,11 @@ export const ProductDetail = () => {
      }, [productId]);
 
       if (!productData) {
-        return <div>Loading...</div>;
+        return (
+          <div className="h-screen bg-gray-800 text-center">
+            <img src={logo} className="App-logo m-auto mt" width="100px" height="100px" />
+          </div>
+        );
       }
   
 

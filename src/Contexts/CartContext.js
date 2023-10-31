@@ -26,8 +26,8 @@ export const CartProvider = ({ children }) => {
 
             //Checking if there are no differences with the Database
 
-            if (items !== parseItems) {
-                console.log('Set items!')
+            if (JSON.stringify(items) !== JSON.stringify(parseItems)) {
+                console.log(items,parseItems)
                 setItems(parseItems)
             }
 
