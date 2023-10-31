@@ -6,6 +6,7 @@ export const ProductDetail = () => {
 
      const { productId } = useParams();
      const [productData, setProductData] = useState();
+     const [productDescription, setProductDescription] = useState();
 
      useEffect(() => {
        // Fetch additional product details using the productId from the route parameter
@@ -17,7 +18,20 @@ export const ProductDetail = () => {
          .catch((error) => {
            console.error("Error fetching product details:", error);
          });
+
+       // Fetch product description
+       fetch(`https://api.mercadolibre.com/items/${productId}/description`)
+         .then((res) => res.json())
+         .then((data) => {
+           setProductDescription(data.plain_text);
+
+         })
+         .catch((error) => {
+           console.error("Error fetching product descrpition:", error);
+         });
+
      }, [productId]);
+
 
       if (!productData) {
         return (
@@ -143,12 +157,7 @@ export const ProductDetail = () => {
               </span>
             </div>
             <p className="leading-relaxed">
-              Fam locavore kickstarter distillery. Mixtape chillwave tumeric
-              sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo
-              juiceramps cornhole raw denim forage brooklyn. Everyday carry +1
-              seitan poutine tumeric. Gastropub blue bottle austin listicle
-              pour-over, neutra jean shorts keytar banjo tattooed umami
-              cardigan.
+              {productDescription}
             </p>
             <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-800 mb-5">
               <div className="flex">
@@ -160,7 +169,7 @@ export const ProductDetail = () => {
               <div className="flex ml-6 items-center">
                 <span className="mr-3">Size</span>
                 <div className="relative">
-                  <select className="rounded border border-gray-700 focus:ring-2 focus:ring-indigo-900 bg-transparent appearance-none py-2 focus:outline-none focus:border-indigo-500 text-white pl-3 pr-10">
+                  <select className="rounded border border-gray-700 focus:ring-2 focus:ring-indigo-900 bg-transparent appearance-none py-2 focus:outline-none focus:border-indigo-500 text-gray pl-3 pr-10">
                     <option>SM</option>
                     <option>M</option>
                     <option>L</option>
@@ -184,13 +193,13 @@ export const ProductDetail = () => {
             </div>
             <div className="flex">
               <span className="title-font font-medium text-2xl text-white">
-                ${productData.price} 
+                ${productData.price}
                 {productData.currency_id}
               </span>
-              <button className="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                Button
+              <button className="flex ml-auto text-white bg-[#65a30d] border-0 py-2 px-6 focus:outline-none hover:bg-[#4d7c0f] rounded">
+                Buy Now
               </button>
-              <button className="rounded-full w-10 h-10 bg-gray-800 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
+              <button className="rounded-full w-10 h-10 bg-gray-800 hover:bg-white p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
                 <svg
                   fill="currentColor"
                   stroke-linecap="round"

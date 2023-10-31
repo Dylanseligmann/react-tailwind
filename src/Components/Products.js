@@ -103,22 +103,21 @@ export default function Products() {
                                     $ {product.price}
                                 </p>
                             </div>
-                            <div className='flex'>
+                            <div className='flex justify-around w-100'>
                                 <button
                                     type="button"
                                     onClick={async () => {
                                         const docRef = await saveProduct(product) ;
-
+                                        
                                         product.docId = docRef.id;
                                         
                                         setItems([product, ...items])} }
+                                        className="m-auto rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
 
-
-                                    className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                                >
-                                    <ShoppingCart size={25} aria-hidden="true" />
+                                        <ShoppingCart size={25} aria-hidden="true" />
                                 </button>
-                                <button onClick={() => { }} className="flex ml-auto text-white bg-[#65a30d] border-0 py-2 px-6 focus:outline-none hover:bg-[#4d7c0f] rounded">
+
+                                <button onClick={() => { }} className=" ml-5 text-white bg-[#65a30d] border-0 py-2 px-6 focus:outline-none hover:bg-[#4d7c0f] rounded">
                                     Buy Now
                                 </button>
                             </div>
