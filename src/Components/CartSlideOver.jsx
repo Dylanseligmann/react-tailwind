@@ -23,9 +23,6 @@ export default function CartSlideOver() {
 
     deleteDoc(docRef)
 
-    
-
-
   }
 
 

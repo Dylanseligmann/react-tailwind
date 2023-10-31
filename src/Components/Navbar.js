@@ -1,10 +1,11 @@
-import { Fragment, useContext } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import logo from '../logo.svg';
 import { NavLink } from 'react-router-dom';
 import { ShoppingCart } from "@phosphor-icons/react";
 import { CartContext } from '../Contexts/CartContext';
+import {CartIcon} from './CartIcon'
 
 
 const navigation = [
@@ -21,6 +22,42 @@ function classNames(...classes) {
 export default function Navbar() {
 
     const cart = useContext(CartContext)
+
+    const [showNoti,setShowNoti] = useState(false);
+    const [itemQuantity,setItemQuantity] = useState(0)
+
+
+    //If cart is open turn off Noti
+
+    useEffect(()=>{
+
+        if(cart.open == true){
+
+            setShowNoti(false)
+        }
+
+
+    },[cart.open])
+
+    //If cart is open do nothing
+
+    useEffect(()=>{
+
+        if(cart.open){
+
+            return
+
+        }
+
+        //If cart is closed and item quantity changed show noti and save quantity of items for next check
+
+        if(itemQuantity !== cart.items.length){
+
+            setShowNoti(true)
+            setItemQuantity(cart.items.length)
+        }
+
+    },[cart.items])
 
     return (
         <Disclosure as="nav" className="bg-gray-900">
@@ -74,7 +111,8 @@ export default function Navbar() {
                                 >
                                     <span className="absolute -inset-1.5" />
                                     <span className="sr-only">View notifications</span>
-                                    <ShoppingCart size={25} aria-hidden="true" />
+
+                                    <CartIcon showNoti={showNoti}/>            
                                 </button>
 
                                 {/* Profile dropdown */}
